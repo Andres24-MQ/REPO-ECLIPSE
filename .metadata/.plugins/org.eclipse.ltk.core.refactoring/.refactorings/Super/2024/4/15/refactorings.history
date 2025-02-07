@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;sdasds.ASDASD&apos; to &apos;RULETA_MONTECARLO_CONGRAFICA&apos;&#x0D;&#x0A;- Original project: &apos;Super&apos;&#x0D;&#x0A;- Original element: &apos;sdasds.ASDASD&apos;&#x0D;&#x0A;- Renamed element: &apos;sdasds.RULETA_MONTECARLO_CONGRAFICA&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;ASDASD&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;sdasds{ASDASD.java[ASDASD" matchStrategy="1" name="RULETA_MONTECARLO_CONGRAFICA" qualified="false" references="true" similarDeclarations="false" stamp="1712809967090" textual="false" version="1.0"/>
+</session>
