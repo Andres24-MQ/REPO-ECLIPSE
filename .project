@@ -3,6 +3,12 @@
 	<name>REPO-ECLIPSE</name>
 	<comment></comment>
 	<projects>
+		<project>graficacion</project>
+		<project>Pipila</project>
+		<project>PRACTICA</project>
+		<project>PRIMERITO</project>
+		<project>PruebaFX</project>
+		<project>Super</project>
 	</projects>
 	<buildSpec>
 	</buildSpec>
