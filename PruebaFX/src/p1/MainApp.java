@@ -11,7 +11,7 @@ public class MainApp extends Application {
     public void start(Stage primaryStage) {
         Label label = new Label("¡Hola, JavaFX!");
         StackPane root = new StackPane(label);
-        Scene scene = new Scene(root, 400, 300);
+        Scene scene = new Scene(root, 600, 300);
 
         primaryStage.setTitle("Mi Primera App con JavaFX");
         primaryStage.setScene(scene);
