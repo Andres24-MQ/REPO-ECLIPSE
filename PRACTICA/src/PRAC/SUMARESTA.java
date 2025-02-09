@@ -85,7 +85,7 @@ System.out.println("precio del producto: "+ precio);*/
 			
 		}
 		System.out.println("El total es: "+TV);
-		d
+		
 		
 		/*int nn;
 do {
