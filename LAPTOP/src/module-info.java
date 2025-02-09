@@ -4,5 +4,5 @@
 /**
  * 
  */
-module Pipila {
+module LAPTOP {
 }
