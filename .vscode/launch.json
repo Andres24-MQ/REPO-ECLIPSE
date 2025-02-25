@@ -1,0 +1,93 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "App",
+            "request": "launch",
+            "mainClass": "PruebaFX/P2.src.App",
+            "projectName": "PruebaFX"
+        },
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "SUMARESTA",
+            "request": "launch",
+            "mainClass": "PRACTICA/PRAC.SUMARESTA",
+            "projectName": "PRACTICA"
+        },
+        {
+            "type": "java",
+            "name": "MainApp",
+            "request": "launch",
+            "mainClass": "PruebaFX/p1.MainApp",
+            "projectName": "PruebaFX",
+            "vmArgs": "--module-path \"C:/JAFAFX SDK/javafx-sdk-21.0.6/lib\" --add-modules javafx.controls,javafx.fxml,javafx.base,javafx.graphics,javafx.media,javafx.swing,javafx.web,javafx.swt",
+            "args": ""
+        },
+        {
+            "type": "java",
+            "name": "BLACKJACK",
+            "request": "launch",
+            "mainClass": "Super/sdasds.BLACKJACK",
+            "projectName": "Super"
+        },
+        {
+            "type": "java",
+            "name": "MiMontecarlo",
+            "request": "launch",
+            "mainClass": "Super/sdasds.MiMontecarlo",
+            "projectName": "Super"
+        },
+        {
+            "type": "java",
+            "name": "RULETA_MONTECARLO_CONGRAFICA",
+            "request": "launch",
+            "mainClass": "Super/sdasds.RULETA_MONTECARLO_CONGRAFICA",
+            "projectName": "Super"
+        },
+        {
+            "type": "java",
+            "name": "RuletaMontecarlo",
+            "request": "launch",
+            "mainClass": "Super/sdasds.RuletaMontecarlo",
+            "projectName": "Super"
+        },
+        {
+            "type": "java",
+            "name": "Volado",
+            "request": "launch",
+            "mainClass": "Super/sdasds.Volado",
+            "projectName": "Super"
+        },
+        {
+            "type": "java",
+            "name": "borracho",
+            "request": "launch",
+            "mainClass": "Super/sdasds.borracho",
+            "projectName": "Super"
+        },
+        {
+            "type": "java",
+            "name": "monte",
+            "request": "launch",
+            "mainClass": "Super/sdasds.monte",
+            "projectName": "Super"
+        },
+        {
+            "type": "java",
+            "name": "App",
+            "request": "launch",
+            "mainClass": "UNIT2/EjercicioClase.src.App",
+            "projectName": "UNIT2"
+        }
+    ]
+}
