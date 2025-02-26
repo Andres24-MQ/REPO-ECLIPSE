@@ -9,7 +9,9 @@
             "name": "App",
             "request": "launch",
             "mainClass": "PruebaFX/P2.src.App",
-            "projectName": "PruebaFX"
+            "projectName": "PruebaFX",
+            "vmArgs": "--module-path \"C:J/AVAFX SDK/javafx-sdk-21.0.6/lib\" --add-modules javafx.controls,javafx.fxml,javafx.base,javafx.graphics,javafx.media,javafx.swing,javafx.web,javafx.swt",
+    "args": ""
         },
         {
             "type": "java",
