@@ -1,6 +1,7 @@
 package paquete;
 
 import java.util.List;
+import java.util.Date;
 
 public class Venta {
         private int folio;

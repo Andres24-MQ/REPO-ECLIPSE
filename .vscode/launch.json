@@ -36,14 +36,8 @@
             "request": "launch",
             "mainClass": "PruebaFX/P2.src.App",
             "projectName": "PruebaFX",
-<<<<<<< HEAD
-"vmArgs": "--module-path \"C:/JAVAFX SDK/javafx-sdk-21.0.6/lib\" --add-modules javafx.controls,javafx.fxml,javafx.base,javafx.graphics,javafx.media,javafx.swing,javafx.web,javafx.swt",
-"args": ""
-
-=======
             "vmArgs": "--module-path \"C:J/AVAFX SDK/javafx-sdk-21.0.6/lib\" --add-modules javafx.controls,javafx.fxml,javafx.base,javafx.graphics,javafx.media,javafx.swing,javafx.web,javafx.swt",
             "args": ""
->>>>>>> da46550f5baf2f8f5e786e89f1ff1d60db68848f
         },
         {
             "type": "java",

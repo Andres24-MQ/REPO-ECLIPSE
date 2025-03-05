@@ -36,7 +36,7 @@ public class NewJFrame extends JFrame {
     private JButton jButton1, jButton2, jButton3, jButton4, jButton5, jButtonLimpiarTabla;
     private JLabel jLabelSubtotal, jLabelDescuento, jLabelImpuesto, jLabelTotal;
 
-    // Nuevos componentes
+    
     private JLabel jLabelCantidad, jLabelDescripcion, jLabelPU;
     private JTextField jTextFieldCantidad, jTextFieldPU;
     private JComboBox<String> jComboBoxDescripcion;
