@@ -36,8 +36,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class NewJFrame extends JFrame {
-    private List<Cliente> clientes = new ArrayList<>();
-    private List<Venta> ventas = new ArrayList<>();
     private DefaultTableModel tableModel;
 
     private JLabel Titulo, jLabel2, jLabel3, jLabel4, jLabel5, jLabel7, jLabel9, jLabel10, jLabel11, jLabel12, lblFolio,lblPU;
@@ -307,7 +305,7 @@ jComboBoxDescripcion.addActionListener(e -> {
             lblnomarc.setText("Consulta: " + selectedFile.getName());
             
             try {
-                Desktop.getDesktop().open(selectedFile); // Abre el archivo con el programa predeterminado
+                Desktop.getDesktop().open(selectedFile); 
             } catch (IOException e) {
                 e.printStackTrace();
             }
