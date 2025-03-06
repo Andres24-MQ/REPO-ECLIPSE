@@ -4,37 +4,24 @@ import java.util.List;
 import java.util.Date;
 
 public class Venta {
-        private int folio;
-    private String claveCliente;
-    private String nombreCliente;
-    private Date fecha;
+    private String folio;
     private List<ProductoVenta> productos;
 
-    public Venta(int folio, String claveCliente, String nombreCliente, Date fecha, List<ProductoVenta> productos) {
+    public Venta(String folio, List<ProductoVenta> productos) {
         this.folio = folio;
-        this.claveCliente = claveCliente;     
-        this.nombreCliente = nombreCliente;
-        this.fecha = fecha;
         this.productos = productos;
-
     }
-
-    public int getFolio() {
+    public String getFolio() {
         return folio;
     }
-
-    public String getClaveCliente() {
-        return claveCliente;
-    }
-
-    public Date getFecha() {
-        return fecha;
-    }
-
     public List<ProductoVenta> getProductos() {
         return productos;
     }
-    public String getNombreCliente() {
-        return nombreCliente;
+    public String toString() {
+        return
+        "-------------DATOS DE LA VENTA--------------" + "\n" + "\n"
+        + "folio: " + folio + "\n" +"\n" 
+        + productos + "\n" +"\n" ;
     }
+
 }

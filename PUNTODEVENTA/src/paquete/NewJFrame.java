@@ -6,39 +6,50 @@ import com.mycompanyiaiaia.punto.ProductoVenta;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.awt.Desktop;
+
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class NewJFrame extends JFrame {
     private List<Cliente> clientes = new ArrayList<>();
     private List<Venta> ventas = new ArrayList<>();
     private DefaultTableModel tableModel;
 
-    private JLabel Titulo, jLabel2, jLabel3, jLabel4, jLabel5, jLabel7, jLabel8, jLabel9, jLabel10, jLabel11, jLabel12, JLabelFecha;
-    private JTextField jTextField1, jTextFieldNombre, jTextFieldDireccion, jTextFieldRFC, jTextFieldFolio;
+    private JLabel Titulo, jLabel2, jLabel3, jLabel4, jLabel5, jLabel7, jLabel9, jLabel10, jLabel11, jLabel12, lblFolio,lblPU;
+    private JTextField jTextField1, jTextFieldNombre, jTextFieldDireccion, jTextFieldRFC;
     private JScrollPane jScrollPane1;
     private JTable jTable1;
     private JButton jButton1, jButton2, jButton3, jButton4, jButton5, jButtonLimpiarTabla;
     private JLabel jLabelSubtotal, jLabelDescuento, jLabelImpuesto, jLabelTotal;
 
     
-    private JLabel jLabelCantidad, jLabelDescripcion, jLabelPU;
-    private JTextField jTextFieldCantidad, jTextFieldPU;
+    private JLabel jLabelCantidad, jLabelDescripcion, jLabelPU, lblnomarc;
+    private JTextField jTextFieldCantidad;
     private JComboBox<String> jComboBoxDescripcion;
     private JButton jButtonAnadir;
 
@@ -53,7 +64,6 @@ public class NewJFrame extends JFrame {
         jLabel4 = new JLabel("Dirección:");
         jLabel5 = new JLabel("RFC:");
         jLabel7 = new JLabel("Folio:");
-        jLabel8 = new JLabel("Fecha:");
         jLabel9 = new JLabel("Subtotal:");
         jLabel10 = new JLabel("Descuento:");
         jLabel11 = new JLabel("Impuesto:");
@@ -63,9 +73,7 @@ public class NewJFrame extends JFrame {
         jTextFieldNombre = new JTextField();
         jTextFieldDireccion = new JTextField();
         jTextFieldRFC = new JTextField();
-        jTextFieldFolio = new JTextField();
-        JLabelFecha = new JLabel(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
-
+        lblFolio = new JLabel(String.valueOf(System.currentTimeMillis()));
         // Inicializa tableModel
         tableModel = new DefaultTableModel(
             new Object[][]{},
@@ -93,8 +101,11 @@ public class NewJFrame extends JFrame {
         jLabelDescripcion = new JLabel("Descripción:");
         jComboBoxDescripcion = new JComboBox<>(new String[]{"Pizza", "Sushi", "Tacos", "Helado"});
         jLabelPU = new JLabel("Precio Unitario:");
-        jTextFieldPU = new JTextField();
+        lblPU = new JLabel();
+        jComboBoxDescripcion.setSelectedItem("Pizza");
+        lblPU.setText("140");
         jButtonAnadir = new JButton("Añadir");
+        lblnomarc = new JLabel();
 
         setLayout(null);
 
@@ -109,9 +120,7 @@ public class NewJFrame extends JFrame {
         jLabel5.setBounds(20, 140, 100, 20);
         jTextFieldRFC.setBounds(120, 140, 100, 20);
         jLabel7.setBounds(350, 50, 50, 20);
-        jTextFieldFolio.setBounds(400, 50, 100, 20);
-        jLabel8.setBounds(350, 80, 50, 20);
-        JLabelFecha.setBounds(400, 80, 100, 20);
+        lblFolio.setBounds(400, 50, 100, 20);
 
         jButton1.setBounds(20, 180, 100, 30);
         jButton5.setBounds(130, 180, 100, 30);
@@ -124,8 +133,9 @@ public class NewJFrame extends JFrame {
         jLabelDescripcion.setBounds(20, 290, 100, 20);
         jComboBoxDescripcion.setBounds(120, 290, 150, 20);
         jLabelPU.setBounds(20, 320, 150, 20);
-        jTextFieldPU.setBounds(170, 320, 100, 20);
+        lblPU.setBounds(170, 320, 100, 20);
         jButtonAnadir.setBounds(20, 350, 120, 30);
+        lblnomarc.setBounds(220, 600, 100, 20);
 
         jScrollPane1.setBounds(20, 390, 500, 150); 
         jLabel9.setBounds(350, 550, 80, 20);
@@ -148,9 +158,7 @@ public class NewJFrame extends JFrame {
         add(jLabel5);
         add(jTextFieldRFC);
         add(jLabel7);
-        add(jTextFieldFolio);
-        add(jLabel8);
-        add(JLabelFecha);
+        add(lblFolio);
         add(jButton1);
         add(jButton2);
         add(jButton3);
@@ -166,6 +174,7 @@ public class NewJFrame extends JFrame {
         add(jLabel12);
         add(jLabelTotal);
         add(jButtonLimpiarTabla);
+        add(lblnomarc);
 
         // Agregar nuevos componentes
         add(jLabelCantidad);
@@ -173,7 +182,7 @@ public class NewJFrame extends JFrame {
         add(jLabelDescripcion);
         add(jComboBoxDescripcion);
         add(jLabelPU);
-        add(jTextFieldPU);
+        add(lblPU);
         add(jButtonAnadir);
 
 jButtonAnadir.addActionListener(e -> añadirFilaATabla());
@@ -184,94 +193,195 @@ jButton5.addActionListener(e -> BorrarDatosDelUsu());
 
 jButton3.addActionListener(e -> GuardarDatos());
 
+jButton4.addActionListener(e -> consultar());
+
+jButton2.addActionListener(e -> modificar());
+
+
+jComboBoxDescripcion.addActionListener(e -> {
+    String TipoSeleccionado = (String) jComboBoxDescripcion.getSelectedItem();
+    switch (TipoSeleccionado) {
+        case "Pizza":
+            lblPU.setText("140");
+            break;
+        case "Sushi":
+            lblPU.setText("200");
+            break;
+        case "Tacos":
+            lblPU.setText("100");
+            break;
+        case "Helado":
+            lblPU.setText("50");
+            break;
+        default:
+            break;
+    }
+});
+
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(600, 720); // Ajustar el tamaño de la ventana
+        setSize(600, 720); 
         setVisible(true);
     }
     
     //METODOS
     private void GuardarDatos(){
-        int folio =  Integer.parseInt(jTextFieldFolio.getText());
-        Date fechoria;
-        fechoria = new SimpleDateFormat("yyyy-MM-dd").parse(JLabelFecha.getText());
+        JFileChooser chooser = new JFileChooser();
+        chooser.setDialogTitle("Seleccionar ubicación para guardar");
+        chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        chooser.setCurrentDirectory(new File("C:/PUNTITO"));
+        chooser.setAcceptAllFileFilterUsed(true);
+        chooser.setFileFilter(new FileNameExtensionFilter("Archivos de texto", "txt"));
 
+        int seleccion = chooser.showSaveDialog(null);
+        if (seleccion != JFileChooser.APPROVE_OPTION) {
+            return; 
+        }
+
+        // OBTENER LA RUTA SELECCIONADA
+        File archivoSeleccionado = chooser.getSelectedFile();
+        String rutaArchivo = archivoSeleccionado.getAbsolutePath();
+
+        if (!rutaArchivo.toLowerCase().endsWith(".txt")) {
+            rutaArchivo += ".txt";
+        }
+        
+        //JALAS LOS DATOS
+        String folio =  lblFolio.getText();
         String ClaveCliente = jTextField1.getText();
         String nombreCliente = jTextFieldNombre.getText();
         String DireccionCliente = jTextFieldDireccion.getText();
         String RFC = jTextFieldRFC.getText();
-        Cliente cliente = new Cliente(ClaveCliente, nombreCliente, 
-        DireccionCliente, RFC); 
+        Double precioTotal = Double.parseDouble(jLabelTotal.getText());
 
 
         List<ProductoVenta> productos = new ArrayList<>();
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+
         for (int i = 0; i < model.getRowCount(); i++) {
             int cantidad = (int) model.getValueAt(i, 0);
             String descripcion = (String) model.getValueAt(i, 1);
             Double PrecioUnitario = (Double) model.getValueAt(i, 2);
-            ProductoVenta producto = new ProductoVenta(descripcion, cantidad, 
-            PrecioUnitario);
-            productos.add(producto);
+
+        //OBJETO PRODUCTOVENTA
+        ProductoVenta producto = new ProductoVenta(descripcion, cantidad, 
+        PrecioUnitario,precioTotal);
+        productos.add(producto);
         }
 
-        Venta venta = new Venta(folio,ClaveCliente,nombreCliente,fechoria,productos);
-        GuardarDatos.guardarVentaTXT(venta, "ventas.txt");
+        //OBJETO CLIENTE
+        Cliente cliente = new Cliente(ClaveCliente, nombreCliente, 
+        DireccionCliente, RFC); 
+
+        //OBJETO VENTA
+        Venta venta = new Venta(folio,productos);
+
+        guardarVentaTXT(venta,cliente, rutaArchivo);
+        System.out.println(cliente.toString());
+        System.out.println(venta.toString());
     }
 
-    private void LimpiarTabla(){
-        tableModel.setRowCount(0);
-            jLabelSubtotal.setText("0.00");
-            jLabelDescuento.setText("0.00");
-            jLabelImpuesto.setText("0.00");
-            jLabelTotal.setText("0.00");
+    private void guardarVentaTXT(Venta venta,Cliente cliente, String rutaArchivo) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(rutaArchivo, true))) {
+            writer.write(cliente.toString());
+            writer.newLine();
+            writer.write(venta.toString()); 
+            writer.newLine();
+            writer.flush();
+
+            JOptionPane.showMessageDialog(null, "Venta guardada correctamente.");
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error al guardar la venta.");
+        }
     }
-    private void BorrarDatosDelUsu(){
-        jTextField1.setText((String.format("")));
-        jTextFieldNombre.setText((String.format("")));
-        jTextFieldDireccion.setText((String.format("")));
-        jTextFieldRFC.setText((String.format("")));
+
+    private void consultar() {
+        JFileChooser chooser = new JFileChooser();
+        chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        chooser.setCurrentDirectory(new File("C:/PUNTITO"));
+        chooser.setAcceptAllFileFilterUsed(true);
+        chooser.setFileFilter(new FileNameExtensionFilter("Tickets: ", "txt", "txt"));
         
-    }
-    private void añadirFilaATabla() {
-        try {
-            // Obtener los valores de los campos de entrada
-            int cantidad = Integer.parseInt(jTextFieldCantidad.getText());
-            String descripcion = (String) jComboBoxDescripcion.getSelectedItem();
-            double pu = Double.parseDouble(jTextFieldPU.getText());
-
-        double importeFila = cantidad * pu;
-        tableModel.addRow(new Object[]{cantidad, descripcion, pu, importeFila});
-
-        double importe = 0;
-        for (int i = 0; i < tableModel.getRowCount(); i++) {
-            importe += (double) tableModel.getValueAt(i, 3);
-        }
-
-        double descuento = 100;
-        double impuesto = importe * 0.16;
-        double total = 0;
-
-        if (importe < 50) {
-            total = importe + impuesto;
-            descuento = 0;
-        }else{
-            total = importe - descuento + impuesto;
-        }
-        
+        if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = chooser.getSelectedFile();
+            lblnomarc.setText("Consulta: " + selectedFile.getName());
             
-            jLabelSubtotal.setText(String.format("%.2f", importe));
-            jLabelDescuento.setText(String.format("%.2f", descuento));
-            jLabelImpuesto.setText(String.format("%.2f", impuesto));
-            jLabelTotal.setText(String.format("%.2f", total));
-            // Limpiar los campos de entrada
-            jTextFieldCantidad.setText("");
-            jTextFieldPU.setText("");
-        } catch (NumberFormatException ex) {
-            // Manejar errores de conversión
-            JOptionPane.showMessageDialog(this, "Por favor, ingresa valores válidos en Cantidad y Precio Unitario.", "Error", JOptionPane.ERROR_MESSAGE);
+            try {
+                Desktop.getDesktop().open(selectedFile); // Abre el archivo con el programa predeterminado
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
+    
+        private void modificar() {
+            JFileChooser chooser = new JFileChooser();
+            chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+            chooser.setCurrentDirectory(new File("C:/PUNTITO"));
+            chooser.setAcceptAllFileFilterUsed(true);
+            chooser.setFileFilter(new FileNameExtensionFilter("Tickets: ", "txt", "txt"));
+            
+            if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+                File selectedFile = chooser.getSelectedFile();
+                lblnomarc.setText("Consulta: " + selectedFile.getName());
+                
+                try {
+                    Desktop.getDesktop().open(selectedFile);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        private void LimpiarTabla(){
+            tableModel.setRowCount(0);
+                jLabelSubtotal.setText("0.00");
+                jLabelDescuento.setText("0.00");
+                jLabelImpuesto.setText("0.00");
+                jLabelTotal.setText("0.00");
+        }
+        private void BorrarDatosDelUsu(){
+            jTextField1.setText((String.format("")));
+            jTextFieldNombre.setText((String.format("")));
+            jTextFieldDireccion.setText((String.format("")));
+            jTextFieldRFC.setText((String.format("")));
+
+        }
+        private void añadirFilaATabla() {
+            try {
+                int cantidad = Integer.parseInt(jTextFieldCantidad.getText());
+                String descripcion = (String) jComboBoxDescripcion.getSelectedItem();
+                double pu = Double.parseDouble(lblPU.getText());
+
+                double importeFila = cantidad * pu;
+                tableModel.addRow(new Object[]{cantidad, descripcion, pu, importeFila});
+
+                double importe = 0;
+                for (int i = 0; i < tableModel.getRowCount(); i++) {
+                    importe += (double) tableModel.getValueAt(i, 3);
+                }
+
+                double descuento = 100;
+                double impuesto = importe * 0.16;
+                double total = 0;
+
+                if (importe <= 50) {
+                    total = importe + impuesto;
+                    descuento = 0;
+                }else{
+                    total = importe - descuento + impuesto;
+                }
+                    jLabelSubtotal.setText(String.format("%.2f", importe));
+                    jLabelDescuento.setText(String.format("%.2f", descuento));
+                    jLabelImpuesto.setText(String.format("%.2f", impuesto));
+                    jLabelTotal.setText(String.format("%.2f", total));
+
+                    jTextFieldCantidad.setText("");
+
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(this, "Por favor, ingresa valores válidos en Cantidad y Precio Unitario.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
 
 
     public static void main(String[] args) {

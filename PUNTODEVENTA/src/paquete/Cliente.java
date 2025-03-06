@@ -28,5 +28,12 @@ package paquete;
         public String getRFC() {
             return RFC;
         }
+        public String toString(){
+            return "GRACIAS POR COMPRAR CON NOSOTROS"+ "\n" +"\n" 
+            +"*Clave Cliente: "  + claveCliente + "\n" +"\n" 
+            + "*Nombre: " + nombre + "\n" +"\n" 
+            + "*Direccion: " + direccion + "\n" +"\n" 
+            + "*RFC:" + RFC +"\n"  +"\n" ;
+        }
     }
 

@@ -1,0 +1,4 @@
+paquete.Venta@6958fb40
+paquete.Venta@380456c4
+paquete.Venta@5b065aec
+Venta{folio=12, claveCliente='123', nombreCliente='asedas', productos=[paquete.ProductoVenta@780a239f]}
