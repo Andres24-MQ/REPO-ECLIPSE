@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Calculadora",
+            "request": "launch",
+            "mainClass": "paquete1.Calculadora",
+            "projectName": ""
+        },
+        {
+            "type": "java",
             "name": "NewJFrame",
             "request": "launch",
             "mainClass": "paca.NewJFrame",
