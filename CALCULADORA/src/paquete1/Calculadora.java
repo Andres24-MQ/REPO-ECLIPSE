@@ -26,6 +26,7 @@ public class Calculadora extends JFrame implements ActionListener {
         panelBotones.setLayout(new GridLayout(5, 4, 10, 10));
         panelBotones.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 10)); 
         panelBotones.setBounds(0, 80, 290, 230); 
+        panelBotones.setBackground(new Color(165, 185, 187));
 
         String[] botones = {
             "C", "CE", "MOD", "+/-", 
@@ -97,7 +98,7 @@ public class Calculadora extends JFrame implements ActionListener {
                 break;
             }
 
-            display.setText(String.valueOf(num1 + " "+ operador +" "+ num2 + " = " + resultado));
+            display.setText(String.valueOf(resultado));
         }
     }
 
