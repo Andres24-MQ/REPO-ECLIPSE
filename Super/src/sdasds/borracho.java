@@ -19,7 +19,7 @@ public class borracho extends JPanel {
     public borracho(){
         DecimalFormat df = new DecimalFormat("#.########");
         double P=0, Exito=0;
-        Scanner sc=new Scanner(System.in);
+        Scanner sc =new Scanner(System.in);
         System.out.println("Cuantas simulaciones quieres hacer?");
         double Veces=sc.nextDouble();
         char PC=' ';
