@@ -6,6 +6,12 @@
     "configurations": [
         {
             "type": "java",
+            "name": "AppContadores",
+            "request": "launch",
+            "mainClass": "MultiHilos.AppContadores"
+        },
+        {
+            "type": "java",
             "name": "Tarjeta",
             "request": "launch",
             "mainClass": "Conjunto.Tarjeta"
