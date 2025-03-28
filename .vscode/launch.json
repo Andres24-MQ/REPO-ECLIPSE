@@ -6,6 +6,27 @@
     "configurations": [
         {
             "type": "java",
+            "name": "MouseGUI",
+            "request": "launch",
+            "mainClass": "layouts_gui.MouseGUI",
+            "projectName": ""
+        },
+        {
+            "type": "java",
+            "name": "ModifiedMouse",
+            "request": "launch",
+            "mainClass": "layouts_gui.ModifiedMouse",
+            "projectName": ""
+        },
+        {
+            "type": "java",
+            "name": "mouse",
+            "request": "launch",
+            "mainClass": "layouts_gui.mouse",
+            "projectName": ""
+        },
+        {
+            "type": "java",
             "name": "Tarjeta",
             "request": "launch",
             "mainClass": "Conjunto.Tarjeta"
