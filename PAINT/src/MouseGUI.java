@@ -2,7 +2,11 @@ package layouts_gui;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class MouseGUI extends JFrame {
@@ -31,7 +35,7 @@ public class MouseGUI extends JFrame {
     public MouseGUI() {
         setTitle("PAINT PIRATEÑO");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(900, 400);
+        setSize(1200, 400);
         setLayout(new BorderLayout());
 
 
@@ -58,14 +62,16 @@ public class MouseGUI extends JFrame {
         add(drawPanel, BorderLayout.CENTER);
 
         buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridLayout(7, 1, 10, 10)); // Increase grid rows
+        buttonPanel.setLayout(new GridLayout(8, 1, 10, 10)); // Increase grid rows
         buttonPanel.setBackground(Color.LIGHT_GRAY);
-        buttonPanel.setPreferredSize(new Dimension(180, 500));
+        buttonPanel.setPreferredSize(new Dimension(350, 500));
         add(buttonPanel, BorderLayout.EAST);
 
-        addButton("Agregar Rectángulo", Color.RED, () -> shapes.add(new RectangleShape(0, 0, 70, 50, Color.RED)));
+        addButton("Guardar", Color.GRAY, () -> guardarImagen());
+
+        addButton("Agregar Rectángulo", Color.DARK_GRAY, () -> shapes.add(new RectangleShape(0, 0, 70, 50, Color.RED)));
         addButton("Agregar Círculo", Color.BLUE, () -> shapes.add(new CircleShape(0, 0, 100, 100, Color.BLUE)));
-        addButton("Agregar Triángulo", Color.GREEN, () -> shapes.add(new TriangleShape(0, 0, 900, 80, Color.GREEN)));
+        addButton("Agregar Triángulo", Color.blue, () -> shapes.add(new TriangleShape(0, 0, 200, 80, Color.CYAN)));
         addButton("Borrar", Color.DARK_GRAY, () -> {
             if (selectedShape != null) {
                 shapes.remove(selectedShape);
@@ -123,8 +129,8 @@ public class MouseGUI extends JFrame {
                     if (resizeMode) {
                         selectedShape.width += dx;
                         selectedShape.height += dy;
-                        if (selectedShape.width < 10) selectedShape.width = 10;
-                        if (selectedShape.height < 10) selectedShape.height = 10;
+                        if (selectedShape.width < 15) selectedShape.width = 15;
+                        if (selectedShape.height < 15) selectedShape.height = 15;
                     } else {
                         selectedShape.x += dx;
                         selectedShape.y += dy;
@@ -136,13 +142,29 @@ public class MouseGUI extends JFrame {
             }
         });
     }
+    private void guardarImagen() {
+    BufferedImage image = new BufferedImage(drawPanel.getWidth(), drawPanel.getHeight(), BufferedImage.TYPE_INT_ARGB);
+    Graphics2D g2d = image.createGraphics();
+    drawPanel.paint(g2d);
+    g2d.dispose();
+
+    try {
+        File file = new File("dibujo.png");
+        ImageIO.write(image, "PNG", file);
+        JOptionPane.showMessageDialog(this, "Imagen guardada como 'dibujo.png'", "Guardado", JOptionPane.INFORMATION_MESSAGE);
+    } catch (IOException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Error al guardar la imagen", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
+
 
     private void addButton(String text, Color color, Runnable action) {
         JButton button = new JButton(text);
         button.setBackground(color);
         button.setForeground(Color.WHITE);
         button.setFocusPainted(false);
-        button.setFont(new Font("Arial", Font.BOLD, 12));
+        button.setFont(new Font("Arial", Font.BOLD, 16));
         button.addActionListener(e -> {
             action.run();
             drawPanel.repaint();
