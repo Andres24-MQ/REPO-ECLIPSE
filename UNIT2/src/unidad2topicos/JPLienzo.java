@@ -6,7 +6,7 @@ import java.awt.event.*;
 public class JPLienzo extends JPanel implements MouseListener, MouseMotionListener{
 
     private int fig;
-    private int x1,y1,x2,y2,ancho,alto;
+    private int x1,y1,x2,y2,ancho,alto, barrido;
     
 
     @Override
